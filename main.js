@@ -301,4 +301,66 @@ document.getElementById('classModal').addEventListener('click', (e) => {
     if (e.target.id === 'classModal') closeClassModal();
 });
 
-// Close modal
+// Close modal on outside click
+document.getElementById('classModal').addEventListener('click', (e) => {
+    if (e.target.id === 'classModal') closeClassModal();
+});
+
+// Close modal on ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeClassModal();
+});
+
+/* =====================================================
+   SAVE / DELETE CLASS
+   ===================================================== */
+
+function saveClass(event) {
+    event.preventDefault();
+
+    const id = document.getElementById('classId').value;
+    const day = document.getElementById('classDay').value;
+    const code = document.getElementById('classCode').value.trim();
+    const type = document.getElementById('classType').value;
+    const name = document.getElementById('className').value.trim();
+    const start = document.getElementById('classStart').value;
+    const end = document.getElementById('classEnd').value;
+    const room = document.getElementById('classRoom').value.trim();
+    const teacher = document.getElementById('classTeacher').value.trim();
+
+    if (!day || !name || !start || !end) return;
+
+    if (start >= end) {
+        alert('End time must be after start time.');
+        return;
+    }
+
+    let classes = getClassesFromStorage();
+
+    if (id) {
+        // Edit existing class
+        const numericId = Number(id);
+        classes = classes.map(c => c.id === numericId
+            ? { id: numericId, day, code, type, name, start, end, room, teacher }
+            : c
+        );
+    } else {
+        // Add new class
+        classes.push({
+            id: Date.now(),
+            day, code, type, name, start, end, room, teacher
+        });
+    }
+
+    saveClassesToStorage(classes);
+    renderSchedule();
+    closeClassModal();
+}
+
+function deleteClass(id) {
+    if (!confirm('Delete this class?')) return;
+    let classes = getClassesFromStorage();
+    classes = classes.filter(c => c.id !== id);
+    saveClassesToStorage(classes);
+    renderSchedule();
+}
