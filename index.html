@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karl Enola | Student Dashboard</title>
+    
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header / Nav -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#" class="nav__logo">Karl Enola</a>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
+                    <li class="nav__item"><a href="#schedule" class="nav__link">Schedule</a></li>
+                    <li class="nav__item"><a href="#todo" class="nav__link">Tasks</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main container">
+        <!-- HERO / PROFILE SECTION -->
+        <section class="home section" id="home">
+            <div class="home__container">
+                <div class="home__img-box">
+                    <img src="profile.png" alt="Karl Enola" class="home__img" onerror="this.src='https://via.placeholder.com/160/1e293b/00d2ff?text=KARL'">
+                </div>
+
+                <div class="home__data">
+                    <span class="home__greeting">Hello, I'm</span>
+                    <h1 class="home__name">Karl Nino Dominique M. Enola</h1>
+                    <h3 class="home__education">BS in Information Technology</h3>
+                    
+                    <div class="home__email-card" onclick="copyEmail()">
+                        <i class="ri-mail-line"></i>
+                        <span id="emailText">kenola_240000000030@uic.edu.ph</span>
+                        <i class="ri-file-copy-line"></i>
+                    </div>
+
+                    <div class="home__social">
+                        <a href="https://www.facebook.com/krlenl/" target="_blank" class="home__social-link"><i class="ri-facebook-circle-fill"></i></a>
+                        <a href="https://www.instagram.com/raisin_sa_spag/" target="_blank" class="home__social-link"><i class="ri-instagram-fill"></i></a>
+                        <a href="https://t.me/DREAMYJOSH" target="_blank" class="home__social-link"><i class="ri-telegram-fill"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DASHBOARD GRID (Schedules + To-Do Side-by-Side on Desktop) -->
+        <div class="dashboard-grid">
+            
+            <!-- CLASS SCHEDULE SECTION -->
+            <section class="schedule section" id="schedule">
+                <h2 class="section__title">Class Schedule</h2>
+                <span class="section__subtitle">UIC Academic Timetable</span>
+
+                <div class="schedule__container grid">
+                    
+                    <!-- TUESDAY -->
+                    <div class="schedule__card">
+                        <h3 class="schedule__day"><i class="ri-calendar-event-line"></i> Tuesday</h3>
+                        
+                        <div class="subject__item">
+                            <div class="subject__header">
+                                <span class="subject__code">CC019.23 / ITELECT3.23</span>
+                                <span class="subject__badge">Lec + Lab</span>
+                            </div>
+                            <p class="subject__name">Software Eng / IT Elective 3</p>
+                            <div class="subject__meta">
+                                <span><i class="ri-time-line"></i> 9:00 AM - 4:00 PM</span>
+                                <span><i class="ri-map-pin-line"></i> L202</span>
+                                <span><i class="ri-user-3-line"></i> Cloribel / Canja</span>
+                            </div>
+                        </div>
+
+                        <div class="subject__item">
+                            <div class="subject__header">
+                                <span class="subject__code">ELEC026.23</span>
+                                <span class="subject__badge">Lec + Lab</span>
+                            </div>
+                            <p class="subject__name">Machine Learning</p>
+                            <div class="subject__meta">
+                                <span><i class="ri-time-line"></i> 4:30 PM - 7:30 PM</span>
+                                <span><i class="ri-map-pin-line"></i> L202</span>
+                                <span><i class="ri-user-3-line"></i> Manseras</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- WEDNESDAY -->
+                    <div class="schedule__card">
+                        <h3 class="schedule__day"><i class="ri-calendar-event-line"></i> Wednesday</h3>
+
+                        <div class="subject__item">
+                            <div class="subject__header">
+                                <span class="subject__code">CC021.23</span>
+                                <span class="subject__badge">Lec + Lab</span>
+                            </div>
+                            <p class="subject__name">Data Analytics</p>
+                            <div class="subject__meta">
+                                <span><i class="ri-time-line"></i> 9:00 AM - 12:00 PM</span>
+                                <span><i class="ri-map-pin-line"></i> L203</span>
+                                <span><i class="ri-user-3-line"></i> Benablo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- THURSDAY -->
+                    <div class="schedule__card">
+                        <h3 class="schedule__day"><i class="ri-calendar-event-line"></i> Thursday</h3>
+
+                        <div class="subject__item">
+                            <div class="subject__header">
+                                <span class="subject__code">ITELECT2.23</span>
+                                <span class="subject__badge">Lec + Lab</span>
+                            </div>
+                            <p class="subject__name">IT Elective 2</p>
+                            <div class="subject__meta">
+                                <span><i class="ri-time-line"></i> 9:00 AM - 12:00 PM</span>
+                                <span><i class="ri-map-pin-line"></i> L202</span>
+                                <span><i class="ri-user-3-line"></i> Castro</span>
+                            </div>
+                        </div>
+
+                        <div class="subject__item">
+                            <div class="subject__header">
+                                <span class="subject__code">IT006.23</span>
+                                <span class="subject__badge">Lec + Lab</span>
+                            </div>
+                            <p class="subject__name">Server Administration</p>
+                            <div class="subject__meta">
+                                <span><i class="ri-time-line"></i> 1:00 PM - 4:00 PM</span>
+                                <span><i class="ri-map-pin-line"></i> L202</span>
+                                <span><i class="ri-user-3-line"></i> Brizuela</span>
+                            </div>
+                        </div>
+
+                        <div class="subject__item">
+                            <div class="subject__header">
+                                <span class="subject__code">ITELECT1.23</span>
+                                <span class="subject__badge">Lec + Lab</span>
+                            </div>
+                            <p class="subject__name">IT Elective 1</p>
+                            <div class="subject__meta">
+                                <span><i class="ri-time-line"></i> 4:30 PM - 7:30 PM</span>
+                                <span><i class="ri-map-pin-line"></i> L202</span>
+                                <span><i class="ri-user-3-line"></i> Cinco</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FRIDAY -->
+                    <div class="schedule__card">
+                        <h3 class="schedule__day"><i class="ri-calendar-event-line"></i> Friday</h3>
+
+                        <div class="subject__item">
+                            <div class="subject__header">
+                                <span class="subject__code">CC020.23</span>
+                                <span class="subject__badge">Lec + Lab</span>
+                            </div>
+                            <p class="subject__name">Mobile Applications Development</p>
+                            <div class="subject__meta">
+                                <span><i class="ri-time-line"></i> 9:00 AM - 12:00 PM</span>
+                                <span><i class="ri-map-pin-line"></i> L203</span>
+                                <span><i class="ri-user-3-line"></i> Cister</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- TO-DO & NOTES SECTION -->
+            <section class="todo section" id="todo">
+                <h2 class="section__title">Notes & Tasks</h2>
+                <span class="section__subtitle">Saved on your device</span>
+
+                <div class="todo__container">
+                    <div class="todo__input-box">
+                        <input type="text" id="taskInput" placeholder="Add a quick note...">
+                        <button class="button todo__btn" onclick="addTask()">
+                            <i class="ri-add-line"></i> Add
+                        </button>
+                    </div>
+
+                    <ul id="todoList" class="todo__list"></ul>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p class="footer__copy">&#169; Karl Enola. Designed for NFC Portal.</p>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
