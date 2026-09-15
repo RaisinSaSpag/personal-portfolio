@@ -10,6 +10,7 @@
     --body-color: #0f172a;
     --container-color: #1e293b;
     --border-color: #334155;
+    --danger-color: #ef4444;
     
     --body-font: 'Poppins', sans-serif;
     --h1-font-size: 1.5rem;
@@ -45,7 +46,7 @@ a {
 /* Responsive Main Container */
 .container {
     width: 100%;
-    max-width: 1024px; /* Expanded for desktop */
+    max-width: 1024px;
     margin-left: auto;
     margin-right: auto;
     padding-left: 1rem;
@@ -193,7 +194,54 @@ a {
     color: var(--first-color);
 }
 
+/* Sidebar (Notes + To-Do) */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
 /* Schedule Layout (Desktop Responsive Grid) */
+.schedule__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.schedule__header-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.schedule__header-text .section__title,
+.schedule__header-text .section__subtitle {
+    text-align: left;
+    margin-bottom: 0;
+}
+
+.schedule__add-btn {
+    background-color: var(--first-color);
+    color: #0f172a;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--body-font);
+    font-size: var(--small-font-size);
+    transition: background .2s;
+}
+
+.schedule__add-btn:hover {
+    background-color: var(--first-color-alt);
+}
+
 .schedule__container {
     grid-template-columns: 1fr;
 }
@@ -220,6 +268,11 @@ a {
     padding: 12px;
     border-radius: 8px;
     margin-bottom: .75rem;
+    position: relative;
+}
+
+.subject__item:last-child {
+    margin-bottom: 0;
 }
 
 .subject__header {
@@ -228,6 +281,7 @@ a {
     align-items: center;
     font-size: .85rem;
     font-weight: 600;
+    gap: 8px;
 }
 
 .subject__code {
@@ -240,6 +294,7 @@ a {
     padding: 2px 6px;
     border-radius: 4px;
     font-size: .7rem;
+    flex-shrink: 0;
 }
 
 .subject__name {
@@ -256,7 +311,65 @@ a {
     color: var(--text-color);
 }
 
-/* To-Do List Layout */
+.subject__actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.subject__item:hover .subject__actions {
+    opacity: 1;
+}
+
+.icon-btn {
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .8rem;
+    transition: all .2s;
+}
+
+.icon-btn:hover {
+    color: var(--first-color);
+    border-color: var(--first-color);
+}
+
+.icon-btn.danger:hover {
+    color: var(--danger-color);
+    border-color: var(--danger-color);
+}
+
+.schedule__empty {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--text-color);
+    font-size: var(--small-font-size);
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
+    background: rgba(15, 23, 42, 0.4);
+    grid-column: 1 / -1;
+}
+
+.schedule__empty i {
+    display: block;
+    font-size: 2rem;
+    color: var(--first-color);
+    margin-bottom: .5rem;
+    opacity: 0.6;
+}
+
+/* To-Do + Notes List Layout */
 .todo__container {
     background-color: var(--container-color);
     border: 1px solid var(--border-color);
@@ -279,6 +392,7 @@ input[type="text"] {
     color: var(--title-color);
     outline: none;
     font-size: var(--small-font-size);
+    font-family: var(--body-font);
 }
 
 input[type="text"]:focus {
@@ -296,6 +410,8 @@ input[type="text"]:focus {
     display: flex;
     align-items: center;
     gap: 4px;
+    font-family: var(--body-font);
+    font-size: var(--small-font-size);
 }
 
 .todo__list {
@@ -310,9 +426,23 @@ input[type="text"]:focus {
     padding: 10px 14px;
     border-radius: 8px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 10px;
     font-size: var(--small-font-size);
+}
+
+.todo__item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--first-color);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.todo__item span {
+    flex: 1;
+    cursor: pointer;
+    transition: opacity 0.2s;
 }
 
 .todo__item.completed span {
@@ -323,9 +453,10 @@ input[type="text"]:focus {
 .delete-btn {
     background: none;
     border: none;
-    color: #ef4444;
+    color: var(--danger-color);
     cursor: pointer;
     font-size: 1rem;
+    flex-shrink: 0;
 }
 
 .footer {
@@ -337,13 +468,170 @@ input[type="text"]:focus {
 }
 
 /* ===================================================
+   MODAL (Add / Edit Class)
+   =================================================== */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal__content {
+    background: var(--container-color);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    width: 100%;
+    max-width: 520px;
+    padding: 1.5rem;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalIn 0.2s ease-out;
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: translateY(15px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+.modal__title {
+    color: var(--title-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.modal__close {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+    border-radius: 6px;
+    transition: color .2s;
+}
+
+.modal__close:hover {
+    color: var(--danger-color);
+}
+
+.form__group {
+    margin-bottom: 1rem;
+}
+
+.form__label {
+    display: block;
+    font-size: var(--small-font-size);
+    color: var(--title-color);
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.form__label .required {
+    color: var(--danger-color);
+}
+
+.form__input,
+.form__select {
+    width: 100%;
+    background-color: var(--body-color);
+    border: 1px solid var(--border-color);
+    padding: 10px 14px;
+    border-radius: 8px;
+    color: var(--title-color);
+    outline: none;
+    font-size: var(--small-font-size);
+    font-family: var(--body-font);
+    transition: border-color .2s;
+}
+
+.form__input:focus,
+.form__select:focus {
+    border-color: var(--first-color);
+}
+
+.form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+@media (max-width: 480px) {
+    .form__row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form__actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background-color: var(--first-color);
+    color: #0f172a;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--body-font);
+    font-size: var(--small-font-size);
+    transition: background .2s, transform .1s;
+}
+
+.button:hover {
+    background-color: var(--first-color-alt);
+}
+
+.button:active {
+    transform: scale(0.97);
+}
+
+.button--ghost {
+    background: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.button--ghost:hover {
+    color: var(--first-color);
+    border-color: var(--first-color);
+    background: transparent;
+}
+
+/* ===================================================
    RESPONSIVE MEDIA QUERIES (TABLETS & DESKTOP)
    =================================================== */
 
 /* For Medium Screens (Tablets / Foldables > 600px) */
 @media screen and (min-width: 600px) {
     .schedule__container {
-        grid-template-columns: repeat(2, 1fr); /* 2 columns for schedule cards */
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -376,13 +664,13 @@ input[type="text"]:focus {
 
     .dashboard-grid {
         display: grid;
-        grid-template-columns: 2fr 1fr; /* Schedule gets 2/3 width, To-Do gets 1/3 */
+        grid-template-columns: 2fr 1fr;
         gap: 2rem;
         align-items: start;
     }
 
-    .todo__container {
+    .sidebar {
         position: sticky;
-        top: 5.5rem; /* Sticks To-Do list on desktop while scrolling */
+        top: 5.5rem;
     }
 }
